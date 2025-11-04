@@ -113,7 +113,11 @@ Function render($option : Variant; $formula : 4D:C1709.Function) : Collection
 		
 		$HOME:=Folder:C1567(fk user preferences folder:K87:10).parent.folder("d2")
 		$HOME.create()
-		This:C1470.controller.variables.HOME:=$HOME.path
+		If (Is macOS:C1572)
+			This:C1470.controller.variables.HOME:=$HOME.path
+		Else 
+			This:C1470.controller.variables.HOME:=$HOME.platformPath
+		End if 
 		
 		var $worker : 4D:C1709.SystemWorker
 		$worker:=This:C1470.controller.execute($command; $isStream ? $option.file : Null:C1517; $option.data).worker
