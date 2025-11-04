@@ -99,6 +99,9 @@ Function render($option : Variant; $formula : 4D:C1709.Function) : Collection
 			: ((Value type:C1509($option.file)=Is object:K8:27) && (OB Instance of:C1731($option.file; 4D:C1709.Blob))) || (Value type:C1509($option.file)=Is BLOB:K8:12) || (Value type:C1509($option.file)=Is text:K8:3)
 				$command+=" - "
 				$isStream:=True:C214
+				If (Value type:C1509($option.file)=Is text:K8:3)
+					$option.file:=Replace string:C233($option.file; "\r"; "\n"; *)
+				End if 
 		End case 
 		
 		If ($stdOut)
