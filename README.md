@@ -4,7 +4,7 @@
 ![downloads](https://img.shields.io/github/downloads/miyako/D2/total)
 
 # D2
-Use D2 from 4D
+Use [D2](https://github.com/terrastruct/d2) from 4D
 
 ## usage
 
