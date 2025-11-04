@@ -17,8 +17,8 @@ If (Count parameters=0)
 	
 Else 
 	
-	var $D2 : cs.D2
-	$D2:=cs.D2.new()
+	var $D2 : cs.D2.D2
+	$D2:=cs.D2.D2.new()
 	
 	$file:="# example.d2\n# Simple D2 diagram for testing rendering and CLI output\n\n# Nodes\nApp: \"Frontend App\"\nAPI: \"Backend API\"\nDB: \"Database\"\nCache: \"Redis Cache\"\n\n# Connections\nApp -> API: \"calls\"\nAPI -> DB: \"queries\"\nAPI -> Cache: \"reads/writes\"\nCache -> DB:"+" \"fallback\"\n\n# Grouping\ngroup Infra {\n    DB\n    Cache\n}\n\n# Styling\nApp.style.fill: \"#f0f9ff\"\nAPI.style.fill: \"#e0f7fa\"\nDB.style.fill: \"#fff3e0\"\nCache.style.fill: \"#e8f5e9\"\n\n# Layout direction\ndirection: right"
 	
@@ -39,7 +39,6 @@ Else
 	
 	$output:=$folder.file("test_d2.pdf")
 	$tasks.push({file: $file; output: $output; data: $output})
-	
 	
 	$output:=$folder.file("test_d2.pptx")
 	$tasks.push({file: $file; output: $output; data: $output})
@@ -66,8 +65,20 @@ The callback formula should have the following signature:
 ```4d
 #DECLARE($worker : 4D.SystemWorker; $params : Object)
 
-var $text : Text
-$text:=$worker.response
+Case of 
+	: ($params.context=Null)
+		
+	: (Value type($params.context)=Is object) && (OB Instance of($params.context; 4D.File))
+		
+		var $file : 4D.File
+		$file:=$params.context
+		
+	: (Value type($worker.response)=Is text)
+		
+		var $text : Text
+		$text:=$worker.response
+		
+End case 
 ```
 
 > [!TIP]
