@@ -62,7 +62,7 @@ Function render($option : Variant; $formula : 4D:C1709.Function) : Collection
 		
 		For each ($arg; OB Entries:C1720($option))
 			Case of 
-				: (["output"; "file"; "watch"; "host"; "port"; "browser"].includes($arg.key))
+				: (["data"; "output"; "file"; "watch"; "host"; "port"; "browser"].includes($arg.key))
 					continue
 			End case 
 			$valueType:=Value type:C1509($arg.value)
